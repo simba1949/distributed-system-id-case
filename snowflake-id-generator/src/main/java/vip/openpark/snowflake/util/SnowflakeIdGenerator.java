@@ -15,7 +15,7 @@ public class SnowflakeIdGenerator {
 	private final long datacenterIdShift = sequenceBits + workerIdBits; // 数据中心ID向左移多少位
 	private final long timestampLeftShift = sequenceBits + workerIdBits + datacenterIdBits; // 时间戳向左移多少位
 
-	private final long sequenceMask = -1L ^ (-1L << (int) sequenceBits); // 生成序列的掩码
+	private final long sequenceMask = -1L ^ (-1L << (int) sequenceBits); // 生成序列的掩码，这里为4095
 	private final long datacenterId; // 数据中心ID
 	private final long workerId; // 工作机器ID
 	private long sequence = 0L; // 序列号
