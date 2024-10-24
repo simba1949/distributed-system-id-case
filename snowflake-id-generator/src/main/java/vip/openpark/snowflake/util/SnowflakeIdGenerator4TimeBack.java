@@ -1,13 +1,14 @@
 package vip.openpark.snowflake.util;
 
 /**
- * 原始雪花算法实现（存在时间回拨的问题）
+ * 原始 Snowflake ID 生成器
+ * 该类用于复现时钟回拨
  *
  * @author anthony
  * @version 2024-10-23
  * @since 2024-10-23 17:37
  */
-public class SnowflakeIdGenerator {
+public class SnowflakeIdGenerator4TimeBack {
 	private final long epoch = 1729612800000L; // 自定义纪元
 	private final long datacenterIdBits = 5L; // 数据中心ID所占的位数
 	private final long workerIdBits = 5L; // 工作机器ID所占的位数
@@ -23,7 +24,7 @@ public class SnowflakeIdGenerator {
 	private long sequence = 0L; // 序列号
 	private long lastTimestamp = -1L; // 上一次生成ID的时间戳
 
-	public SnowflakeIdGenerator(long workerId, long datacenterId) {
+	public SnowflakeIdGenerator4TimeBack(long workerId, long datacenterId) {
 		if (workerId > (-1L ^ (-1L << (int) workerIdBits))) {
 			throw new IllegalArgumentException("workerId can't be greater than %d or less than 0");
 		}
@@ -40,7 +41,7 @@ public class SnowflakeIdGenerator {
 	 * @return ID
 	 */
 	public synchronized long nextId() {
-		long timestamp = System.currentTimeMillis();
+		long timestamp = currentTimeMillis();
 		if (timestamp < lastTimestamp) {
 			throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
 		}
@@ -74,11 +75,22 @@ public class SnowflakeIdGenerator {
 	 * @return 下一个毫秒的时间戳
 	 */
 	protected long waitNextMillis(long lastTimestamp) {
-		long timestamp = System.currentTimeMillis();
+		long timestamp = currentTimeMillis();
 		while (timestamp <= lastTimestamp) {
 			// 等待下一个毫秒
-			timestamp = System.currentTimeMillis();
+			timestamp = currentTimeMillis();
 		}
 		return timestamp;
+	}
+
+	/**
+	 * 获取当前时间戳
+	 * 结合 mockito 框架，可以复现时钟回拨
+	 *
+	 * @return 当前时间戳
+	 */
+	protected long currentTimeMillis() {
+		// return System.currentTimeMillis();
+		return TimeUtil.getCurrentTimeMillis();
 	}
 }
