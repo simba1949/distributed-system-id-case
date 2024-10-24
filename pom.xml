@@ -12,6 +12,7 @@
     <modules>
         <module>uuid-generator</module>
         <module>snowflake-id-generator</module>
+        <module>baidu-uid-generator</module>
         <module>meituan-leaf-generator</module>
     </modules>
 
