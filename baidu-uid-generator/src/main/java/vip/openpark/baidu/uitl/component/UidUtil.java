@@ -14,7 +14,8 @@ import javax.annotation.Resource;
 @Component
 public class UidUtil {
 	@Resource
-	@Qualifier("cachedUidGenerator")
+//	@Qualifier("cachedUidGenerator")
+	@Qualifier("defaultUidGenerator")
 	private UidGenerator uidGenerator;
 
 	public long nextId() {
