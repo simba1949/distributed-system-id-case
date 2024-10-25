@@ -1,22 +1,20 @@
-package vip.openpark.baidu.compoent;
+package vip.openpark.baidu.uitl.component;
 
 import com.baidu.fsg.uid.UidGenerator;
-import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * @author anthony
- * @version 2024-10-24
- * @since 2024-10-24 13:43
+ * @version 2024-10-25
+ * @since 2024-10-25 10:12
  */
-@Slf4j
 @Component
-public class UidGeneratorComponent {
-
+public class UidUtil {
 	@Resource
-	@Qualifier("defaultUidGenerator")
+	@Qualifier("cachedUidGenerator")
 	private UidGenerator uidGenerator;
 
 	public long nextId() {

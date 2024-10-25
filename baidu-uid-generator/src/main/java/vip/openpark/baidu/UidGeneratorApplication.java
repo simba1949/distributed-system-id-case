@@ -1,16 +1,15 @@
 package vip.openpark.baidu;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Repository;
-import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @author anthony
  * @version 2024-10-24
  * @since 2024-10-24 10:53
  */
-@MapperScan(basePackages = {"com.baidu.fsg.uid.worker.dao"}, annotationClass = Repository.class)
+@MapperScan("com.baidu.fsg.uid.worker.dao")
 @SpringBootApplication
 public class UidGeneratorApplication {
 	public static void main(String[] args) {

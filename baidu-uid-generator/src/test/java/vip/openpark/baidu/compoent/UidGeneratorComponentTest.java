@@ -1,9 +1,11 @@
 package vip.openpark.baidu.compoent;
 
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import vip.openpark.baidu.uitl.component.UidUtil;
+
+import javax.annotation.Resource;
 
 /**
  * @author anthony
@@ -14,10 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class UidGeneratorComponentTest {
 	@Resource
-	private UidGeneratorComponent uidGeneratorComponent;
+	private UidUtil uidUtil;
 
 	@Test
-	public void nextIdTest(){
-		log.info("nextId:{}",uidGeneratorComponent.nextId());
+	public void nextIdTest() {
+		log.info("nextId:{}", uidUtil.nextId());
 	}
 }
